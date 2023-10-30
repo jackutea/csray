@@ -83,14 +83,21 @@ class ClientMain {
         int startY = 20;
         const int FONT_SIZE = 18;
         const int GAP = 10;
+
+        // ==== Menu ====
         if (!isSampling) {
             Raylib.DrawText("Press option to start sampling: ", startX, startY, FONT_SIZE, Color.BLACK);
             startY += startY + GAP;
             Raylib.DrawText("1. W2B", startX, startY, FONT_SIZE, Color.BLACK);
             return;
         }
+
+        // ==== Business ====
         w2b?.Draw();
+
+        // ==== Menu End ====
         Raylib.DrawText("ESC to back to menu", startX, startY, 10, Color.BLACK);
+
     }
 
 }

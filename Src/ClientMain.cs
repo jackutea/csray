@@ -7,8 +7,11 @@ class ClientMain {
     static int windowWidth = 960;
     static int windowHeight = 540;
 
+    static bool isSampling;
+
     public static void Main() {
 
+        isSampling = false;
 
         Raylib.InitWindow(windowWidth, windowHeight, "Raylib C# Client");
         Raylib.SetExitKey(KeyboardKey.KEY_NULL);
@@ -19,10 +22,12 @@ class ClientMain {
 
             if (Raylib.IsKeyReleased(KeyboardKey.KEY_ESCAPE)) {
                 Clear();
+                isSampling = false;
             }
 
-            if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE)) {
-                Restart();
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_ONE)) {
+                Start_W2B();
+                isSampling = true;
             }
 
             float dt = Raylib.GetFrameTime();
@@ -47,7 +52,7 @@ class ClientMain {
         GC.Collect();
     }
 
-    static void Restart() {
+    static void Start_W2B() {
         w2b = new Rewrite_W2B(windowWidth,
                               windowHeight,
                               Raylib.GetRandomValue(0, windowWidth - 1),
@@ -74,7 +79,18 @@ class ClientMain {
     }
 
     static void Draw() {
+        int startX = 20;
+        int startY = 20;
+        const int FONT_SIZE = 18;
+        const int GAP = 10;
+        if (!isSampling) {
+            Raylib.DrawText("Press option to start sampling: ", startX, startY, FONT_SIZE, Color.BLACK);
+            startY += startY + GAP;
+            Raylib.DrawText("1. W2B", startX, startY, FONT_SIZE, Color.BLACK);
+            return;
+        }
         w2b?.Draw();
+        Raylib.DrawText("ESC to back to menu", startX, startY, 10, Color.BLACK);
     }
 
 }
